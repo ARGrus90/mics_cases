@@ -111,6 +111,8 @@ def groups_by_qnt_zero_id(n_customers:int) -> dict:
     return groups
 
 
+# Лучшая производительность, чем 
+# у groups_by_qnt(n_customers,n_first_id) функции.
 def groups_by_qnt_np(n_customers:int,n_first_id:int=0) -> dict:
     '''
     Функция используется для подсчета числа
