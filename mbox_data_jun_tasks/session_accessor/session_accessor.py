@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 @pd.api.extensions.register_dataframe_accessor("session")
 class SessionAccessor:
@@ -54,7 +55,7 @@ class SessionAccessor:
         if df.product_id.dtype != np.dtype(int):
             df['product_id'] = df['product_id'].astype(int)
         if df.timestamp.dtype != np.dtype('datetime64[ns]'):
-            df1['timestamp'] = df1['timestamp'] \
+            df['timestamp'] = df['timestamp'] \
             .astype('datetime64[ns]')       
         return df
     

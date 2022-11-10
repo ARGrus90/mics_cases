@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  db:
+    container_name: db
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=prod_cat
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./init_data/products.csv:/app/init_data/products.csv
+      - ./init_data/categories.csv:/app/init_data/categories.csv
+      - ./init_data/prodcategories.csv:/app/init_data/prodcategories.csv
+      - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "prod_cat", "-U", "postgres" ]
+      timeout: 40s
+      interval: 2s
+      retries: 20
+  web_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web_api
+    ports:
+      - '8000:8000'
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/prod_cat
+    depends_on:
+      - db
+          
