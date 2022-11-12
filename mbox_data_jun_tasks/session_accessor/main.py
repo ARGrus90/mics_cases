@@ -34,10 +34,10 @@ def test_df(n):
 
 if __name__ == '__main__':
     # ENV VARS
-    POWER_DEFAULT = 7
+    ORDER_DEFAULT = 7
     SESSION_TIME_VAL_DFLT = 3
     SESSION_TIME_FORMAT_DFLT = 'm'
-    n = int(os.getenv('POWER', POWER_DEFAULT))
+    n = int(os.getenv('ORDER', ORDER_DEFAULT))
     stime = int(os.getenv(
         'SESSION_TIME_VAL',
         SESSION_TIME_VAL_DFLT
@@ -47,7 +47,7 @@ if __name__ == '__main__':
         SESSION_TIME_FORMAT_DFLT
     ))
 
-    print(f'Power is {n}' if n>=3 else f'Power is set to 3')
+    print(f'Order is {n}' if n>=3 else f'Order is set to 3')
     df = test_df(n)
     start = t.time()
 
